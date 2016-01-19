@@ -11,7 +11,7 @@ describe('prismo.flash.services module', function() {
     FlashService = _FlashService_;
   }));
 
-  describe('flashService', function() {
+  describe('FlashService', function() {
 
     it('should have the initService method', function() {
       expect(FlashService.initService).toBeDefined();

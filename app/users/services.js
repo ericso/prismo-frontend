@@ -1,128 +1,102 @@
 'use strict';
 
 angular
-  .module('prismo.users.services', ['ngCookies', 'prismo.users.resources'])
-  .factory('authenticationService', authenticationService);
+  .module('prismo.users.services', [
+    'ngCookies', 'prismo.users.resources', 'prismo.encoding.services'])
+  .service('AuthenticationService', [
+    '$log', '$cookies', '$rootScope', '$http',
+    'usersResource', 'EncodingService',
+    AuthenticationService]);
 
-authenticationService.$inject = [
-    '$log', '$cookies', '$rootScope', '$timeout', 'usersResource'];
-function authenticationService(
-    $log, $cookies, $rootScope, $timeout, usersResource) {
-  var service = {};
-  service.login = login;
-  service.setCredentials = setCredentials;
-  service.clearCredentials = clearCredentials;
-  return service;
 
-  /**
-   * Dummy authentication for testing, uses $timeout to simulate api call.
-   */
-  function login(username, password, callback) {
-    usersResource.create({username: username, password: password})
-      .success($log.info);
+
+/**
+ * Constructor for the AuthenticationService.
+ *
+ * The AuthenticationService should provide two functions:
+ * 1. It should make an API call to a backend to authenticate a set of
+ *    credentials.
+ * 2. It should provide a mechanism to check that a user is logged in in any
+ *    controller.
+ */
+function AuthenticationService(
+    $log, $cookies, $rootScope, $http, usersResource, EncodingService) {
+  this.log_ = $log;
+  this.cookies_ = $cookies;
+  this.rootScope_ = $rootScope;
+  this.http_ = $http;
+  this.usersResource_ = usersResource;
+  this.EncodingService_ = EncodingService;
+
+  this.initService();
+};
+
+
+/**
+ * Initializes settings for the service.
+ */
+AuthenticationService.prototype.initService = function() {
+  if (typeof this.rootScope_.globals === 'undefined') {
+    this.rootScope_.globals = {};
   }
+};
 
-  /**
-   * Sets credentials on the rootScope globals object.
-   */
-  function setCredentials(username, password) {
-    var authdata = base64.encode(username + ':' + password);
-    $rootScope.globals = {
-      currentUser: {
-        username: username,
-        authdata: authdata
-      }
-    };
-    // TODO(eso): set this on usersResource
-    $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-    $cookies.put('globals', $rootScope.globals);
+
+/**
+ * API call to log in the user.
+ */
+AuthenticationService.prototype.login = function(username, password) {
+  var self = this;
+  var success = function(value) {
+    self.setCredentials(username, password);
+  };
+  var error = function(reason) {
+    self.log_.error(reason);
   }
+  self.usersResource_.login({username: username, password: password})
+    .$promise.then(success, error);
+};
 
-  /**
-   * Clears the credentials on the rootScope globals object.
-   */
-  function clearCredentials() {
-    $rootScope.globals = {};
-    $cookies.remove('globals');
-    $http.defaults.headers.common.Authorization = 'Basic';
+
+/**
+ * Log the user out. Does not make a call the the backend API.
+ */
+AuthenticationService.prototype.logout = function() {
+  this.clearCredentials();
+  // TODO(eso): broadcast message indicating user has logged out.
+};
+
+
+/**
+ * Checks to see if the user is currently logged in.
+ */
+AuthenticationService.prototype.isLoggedIn = function() {
+  return (typeof this.rootScope_.globals.currentUser !== 'undefined') ?
+      true : false;
+};
+
+
+/**
+ * Sets credentials on the rootScope globals object.
+ */
+AuthenticationService.prototype.setCredentials = function(username, password) {
+  var authdata = this.EncodingService_.encode(username + ':' + password);
+  this.rootScope_.globals.currentUser = {
+    username: username,
+    authdata: authdata
+  };
+  this.cookies_.putObject('currentUser', this.rootScope_.globals.currentUser);
+  this.http_.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+};
+
+
+/**
+ * Clears the credentials on the rootScope globals object.
+ */
+AuthenticationService.prototype.clearCredentials = function() {
+  if (typeof this.rootScope_.globals.currentUser !== 'undefined') {
+    this.rootScope_.globals.currentUser = null;
   }
-}
-
-// Base64 encoding service used by authenticationService
-var base64 = {
-  keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
-  encode: function (input) {
-    var output = "";
-    var chr1, chr2, chr3 = "";
-    var enc1, enc2, enc3, enc4 = "";
-    var i = 0;
-
-    do {
-      chr1 = input.charCodeAt(i++);
-      chr2 = input.charCodeAt(i++);
-      chr3 = input.charCodeAt(i++);
-
-      enc1 = chr1 >> 2;
-      enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-      enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-      enc4 = chr3 & 63;
-
-      if (isNaN(chr2)) {
-          enc3 = enc4 = 64;
-      } else if (isNaN(chr3)) {
-          enc4 = 64;
-      }
-
-      output = output +
-          this.keyStr.charAt(enc1) +
-          this.keyStr.charAt(enc2) +
-          this.keyStr.charAt(enc3) +
-          this.keyStr.charAt(enc4);
-      chr1 = chr2 = chr3 = "";
-      enc1 = enc2 = enc3 = enc4 = "";
-    } while (i < input.length);
-
-    return output;
-  },
-
-  decode: function (input) {
-    var output = "";
-    var chr1, chr2, chr3 = "";
-    var enc1, enc2, enc3, enc4 = "";
-    var i = 0;
-
-    // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-    var base64test = /[^A-Za-z0-9\+\/\=]/g;
-    if (base64test.exec(input)) {
-      window.alert("There were invalid base64 characters in the input text.\n" +
-          "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-          "Expect errors in decoding.");
-    }
-    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
-    do {
-      enc1 = this.keyStr.indexOf(input.charAt(i++));
-      enc2 = this.keyStr.indexOf(input.charAt(i++));
-      enc3 = this.keyStr.indexOf(input.charAt(i++));
-      enc4 = this.keyStr.indexOf(input.charAt(i++));
-
-      chr1 = (enc1 << 2) | (enc2 >> 4);
-      chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-      chr3 = ((enc3 & 3) << 6) | enc4;
-
-      output = output + String.fromCharCode(chr1);
-
-      if (enc3 != 64) {
-          output = output + String.fromCharCode(chr2);
-      }
-      if (enc4 != 64) {
-          output = output + String.fromCharCode(chr3);
-      }
-
-      chr1 = chr2 = chr3 = "";
-      enc1 = enc2 = enc3 = enc4 = "";
-    } while (i < input.length);
-
-    return output;
-  }
+  this.cookies_.remove('currentUser');
+  this.http_.defaults.headers.common.Authorization = 'Basic';
 };

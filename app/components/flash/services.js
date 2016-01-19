@@ -6,12 +6,11 @@ angular
 
 
 /**
- * Constructor for the FlashService object.
+ * Constructor for the FlashService.
  */
 function FlashService($rootScope) {
-  var self = this;
-  self.rootScope_ = $rootScope;
-  self.initService();
+  this.rootScope_ = $rootScope;
+  this.initService();
 };
 
 

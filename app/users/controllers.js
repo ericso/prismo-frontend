@@ -14,11 +14,11 @@ angular
 
 
 LoginController.$inject = [
-    '$location', 'authenticationService', 'FlashService'];
-function LoginController($location, authenticationService, FlashService) {
+    '$location', 'AuthenticationService', 'FlashService'];
+function LoginController($location, AuthenticationService, FlashService) {
   var vm = this;
   vm.location_ = $location;
-  vm.authenticationService_ = authenticationService;
+  vm.AuthenticationService_ = AuthenticationService;
   vm.FlashService_ = FlashService;
 }
 
@@ -28,7 +28,7 @@ function LoginController($location, authenticationService, FlashService) {
  */
 LoginController.prototype.initController = function() {
   // reset login status
-  this.authenticationService_.clearCredentials();
+  this.AuthenticationService_.clearCredentials();
 };
 
 
@@ -37,10 +37,10 @@ LoginController.prototype.initController = function() {
  */
 LoginController.prototype.login = function() {
   this.dataLoading = true;
-  this.authenticationService_.Login(
+  this.AuthenticationService_.Login(
       this.username, this.password, function(response) {
       if(response.success) {
-          this.authenticationService_.setCredentials(
+          this.AuthenticationService_.setCredentials(
               this.username, this.password);
           this.location_.path('/');
       } else {

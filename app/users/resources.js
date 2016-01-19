@@ -7,24 +7,24 @@ angular
 usersResource.$inject = ['$resource'];
 function usersResource($resource) {
   return $resource(
-    'api/v0/users/:userId',
-    {},
+    'api/v0/users/:user',
+    {user: '@user'},
     {
-      query: {
+      get: {
         method:'GET',
-        params: {
-          userId: 'users'
-        },
-        isArray: true
       },
-      create: {
+      save: {
         method: 'POST'
       },
       update: {
         method: 'PUT'
       },
-      destroy: {
+      delete: {
         method: 'DELETE'
+      },
+      login: {
+        url: 'api/v0/authenticate',
+        method: 'POST',
       }
     }
   );
