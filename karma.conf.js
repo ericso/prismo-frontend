@@ -1,9 +1,9 @@
-module.exports = function(config){
+module.exports = function(config) {
   config.set({
 
-    basePath : './',
+    basePath: './',
 
-    files : [
+    files: [
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/angular-route/angular-route.js',
@@ -16,22 +16,39 @@ module.exports = function(config){
       'app/users/**/*.js'
     ],
 
-    autoWatch : true,
+    autoWatch: true,
 
     frameworks: ['jasmine'],
 
-    browsers : ['Chrome'],
+    browsers: ['Chrome'],
 
-    plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter'
-            ],
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-jasmine',
+      'karma-junit-reporter',
+      'karma-coverage'
+    ],
 
-    junitReporter : {
+    junitReporter: {
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
+    },
+
+    // coverage reporter generates the coverage
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'app/**/*.js': ['coverage']
+    },
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
     }
 
   });
