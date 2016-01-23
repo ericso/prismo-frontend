@@ -2,7 +2,9 @@
 
 angular
   .module('prismo.users.controllers', [
-    'ngRoute', 'prismo.users.services', 'prismo.flash.services'])
+    'ngRoute',
+    'prismo.users.services',
+    'prismo.flash.services'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/login', {
       templateUrl: 'users/login.html',
@@ -20,6 +22,8 @@ function LoginController($location, AuthenticationService, FlashService) {
   vm.location_ = $location;
   vm.AuthenticationService_ = AuthenticationService;
   vm.FlashService_ = FlashService;
+
+  vm.initController();
 }
 
 

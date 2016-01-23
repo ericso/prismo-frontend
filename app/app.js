@@ -7,9 +7,9 @@ angular.module('prismo', [
   'prismo.flash',
   'prismo.version',
   'prismo.users',
-  'prismo.view1',
+  'prismo.home',
   'prismo.view2'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/home'});
 }]);
