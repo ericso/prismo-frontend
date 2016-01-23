@@ -17,6 +17,10 @@ angular
 
 LoginController.$inject = [
     '$location', 'AuthenticationService', 'FlashService'];
+
+/**
+ * Constructor the LoginController.
+ */
 function LoginController($location, AuthenticationService, FlashService) {
   var vm = this;
   vm.location_ = $location;

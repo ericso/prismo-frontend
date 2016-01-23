@@ -2,7 +2,8 @@
 
 angular
   .module('prismo.home.controllers', [
-    'ngRoute'])
+    'ngRoute',
+    'prismo.users.services'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/home', {
       templateUrl: 'home/home.html',
@@ -13,4 +14,9 @@ angular
   .controller('HomeController', HomeController);
 
 
-function HomeController() {}
+/**
+ * Constructor the HomeController.
+ */
+function HomeController(AuthenticationService) {
+
+}

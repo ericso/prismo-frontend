@@ -12,7 +12,8 @@ module.exports = function(config) {
       'app/components/encoding/**/*.js',
       'app/components/flash/**/*.js',
       'app/components/version/**/*.js',
-      'app/view*/**/*.js',
+      'app/about/**/*.js',
+      'app/home/**/*.js',
       'app/users/**/*.js'
     ],
 

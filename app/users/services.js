@@ -77,6 +77,14 @@ AuthenticationService.prototype.isLoggedIn = function() {
 
 
 /**
+ * Returns the current user on the rootScope globals if exists. Else, null.
+ */
+AuthenticationService.prototype.getCurrentUser = function() {
+  return this.isLoggedIn() ? this.rootScope_.globals.currentUser : null;
+};
+
+
+/**
  * Sets credentials on the rootScope globals object.
  */
 AuthenticationService.prototype.setCredentials = function(username, password) {
