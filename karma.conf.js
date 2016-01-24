@@ -11,7 +11,7 @@ module.exports = function(config) {
       'app/bower_components/angular-resource/angular-resource.js',
       'app/components/encoding/**/*.js',
       'app/components/flash/**/*.js',
-      'app/components/version/**/*.js',
+      'app/components/appinfo/**/*.js',
       'app/about/**/*.js',
       'app/home/**/*.js',
       'app/users/**/*.js'
