@@ -25,7 +25,7 @@ MenubarController.$inject = ['AuthenticationService'];
 /**
  * Controller for menubar directive.
  */
-function MenubarController() {
+function MenubarController(AuthenticationService) {
   this.AuthenticationService_ = AuthenticationService;
   this.user = null;
 

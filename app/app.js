@@ -5,7 +5,7 @@ angular.module('prismo', [
   'ngRoute',
   'prismo.encoding',
   'prismo.flash',
-  'prismo.version',
+  'prismo.appinfo',
   'prismo.users',
   'prismo.menubar',
   'prismo.home',
