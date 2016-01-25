@@ -17,6 +17,6 @@ angular
 /**
  * Constructor the HomeController.
  */
-function HomeController(AuthenticationService) {
+function HomeController() {
 
 }

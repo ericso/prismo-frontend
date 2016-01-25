@@ -14,6 +14,7 @@ module.exports = function(config) {
       'app/components/appinfo/**/*.js',
       'app/about/**/*.js',
       'app/home/**/*.js',
+      'app/menubar/**/*.js',
       'app/users/**/*.js'
     ],
 

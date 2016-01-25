@@ -18,7 +18,9 @@
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <menubar></menubar>
+  <!-- TODO(ericso): create a tabs service that handles tabs for the app -->
+  <menubar appname="'%APPNAME%' | interpolateAppname"
+            tabs="[{path: '#/home', displayName: 'Home'}, {path: '#/about', displayName: 'About'}]"></menubar>
 
   <div class="container">
 

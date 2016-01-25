@@ -11,7 +11,8 @@
       </div>
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav">
-          <li ng-repeat="tab in tabs" ng-class="vm.activeTab({{ tab.name }})">
+          <!-- TODO(ericso): add an ng-class mechanism to make tab active -->
+          <li ng-repeat="tab in vm.tabs">
             <a href="{{ tab.path }}">{{ tab.displayName }}</a>
           </li>
         </ul>
