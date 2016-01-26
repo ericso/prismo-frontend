@@ -66,8 +66,8 @@ describe('prismo.menubar.directives module', function() {
         }));
 
     afterEach(function() {
-        mockBackend.verifyNoOutstandingExpectation();
-        mockBackend.verifyNoOutstandingRequest();
+      mockBackend.verifyNoOutstandingExpectation();
+      mockBackend.verifyNoOutstandingRequest();
     });
 
     it('should contain the app name', function() {

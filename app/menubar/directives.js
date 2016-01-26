@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -47,3 +49,5 @@ MenubarController.prototype.initController = function() {
 MenubarController.prototype.loadCurrentUser = function() {
   this.user = this.AuthenticationService_.getCurrentUser();
 };
+
+})();

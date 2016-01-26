@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -14,6 +16,6 @@ angular
 /**
  * Constructor the AboutController.
  */
-function AboutController() {
+function AboutController() {}
 
-}
+})();

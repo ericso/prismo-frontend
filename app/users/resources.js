@@ -1,4 +1,6 @@
-// Main module for the users resource
+(function() {
+
+'use strict';
 
 angular
   .module('prismo.users.resources', ['ngResource'])
@@ -29,3 +31,5 @@ function usersResource($resource) {
     }
   );
 }
+
+})();

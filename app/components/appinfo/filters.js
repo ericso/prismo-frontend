@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -12,3 +14,5 @@ angular
       return String(text).replace(/\%VERSION\%/mg, version);
     };
   }]);
+
+})();

@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -17,6 +19,6 @@ angular
 /**
  * Constructor the HomeController.
  */
-function HomeController() {
+function HomeController() {}
 
-}
+})();

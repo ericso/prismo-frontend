@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -108,3 +110,5 @@ AuthenticationService.prototype.clearCredentials = function() {
   this.cookies_.remove('currentUser');
   this.http_.defaults.headers.common.Authorization = 'Basic';
 };
+
+})();

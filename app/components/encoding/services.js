@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -100,3 +102,5 @@ EncodingService.prototype.decode = function(input) {
 
   return output;
 };
+
+})();

@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -57,3 +59,5 @@ LoginController.prototype.login = function() {
       }
   });
 };
+
+})();

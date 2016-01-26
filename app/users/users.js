@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular.module('prismo.users', [
@@ -5,3 +7,5 @@ angular.module('prismo.users', [
   'prismo.users.resources',
   'prismo.users.services'
 ]);
+
+})();

@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular.module('prismo.appinfo', [
@@ -7,3 +9,5 @@ angular.module('prismo.appinfo', [
 
 .value('appname', 'Prismo')
 .value('version', '0.1');
+
+})();

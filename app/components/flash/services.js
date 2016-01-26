@@ -1,3 +1,5 @@
+(function() {
+
 'use strict';
 
 angular
@@ -65,3 +67,5 @@ FlashService.prototype.error = function(message, keepAfterLocationChange) {
     keepAfterLocationChange: keepAfterLocationChange
   };
 };
+
+})();
