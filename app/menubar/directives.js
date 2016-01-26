@@ -15,10 +15,11 @@ angular
         appname: '=',
         tabs: '='
       },
-      controller: MenubarController,
+      controller: 'MenubarController',
       controllerAs: 'vm'
     };
-  });
+  })
+  .controller('MenubarController', MenubarController);
 
 
 MenubarController.$inject = ['AuthenticationService'];

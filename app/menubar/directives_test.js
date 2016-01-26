@@ -60,7 +60,7 @@ describe('prismo.menubar.directives module', function() {
             tabs: tabs
           };
           element = compile(directiveElement)(scope);
-          ctrl = controller(MenubarController, deps, data);
+          ctrl = controller('MenubarController', deps, data);
           scope.$digest();
           mockBackend.flush();
         }));

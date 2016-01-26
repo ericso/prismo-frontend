@@ -13,10 +13,11 @@ angular
       scope: {},
       bindToController: {
       },
-      controller: LoginModalController,
+      controller: 'LoginModalController',
       controllerAs: 'vm'
     };
-  });
+  })
+  .controller('LoginModalController', LoginModalController);
 
 
 LoginModalController.$inject = ['AuthenticationService'];
