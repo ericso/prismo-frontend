@@ -3,7 +3,9 @@
 'use strict';
 
 angular
-  .module('prismo.users.resources', ['ngResource'])
+  .module('prismo.users.resources', [
+    'ngResource'
+  ])
   .factory('usersResource', usersResource);
 
 usersResource.$inject = ['$resource'];

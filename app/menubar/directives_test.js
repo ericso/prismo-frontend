@@ -47,7 +47,7 @@ describe('prismo.menubar.directives module', function() {
 
           AuthenticationServiceMock.getCurrentUser = function() {
             return {
-              username: 'username',
+              username: 'someuser',
               authdata: 'someauthdata'
             };
           };
@@ -74,9 +74,14 @@ describe('prismo.menubar.directives module', function() {
       expect(element.html()).toContain('Prismo');
     });
 
-    it('should contain the tabs', function() {
+    it('should contain the home tab', function() {
       expect(element.html()).toContain('#/home');
       expect(element.html()).toContain('Home');
+    });
+
+    it('should contain the about tab', function() {
+      expect(element.html()).toContain('#/about');
+      expect(element.html()).toContain('About');
     });
 
     it('should try to load the current user', function() {

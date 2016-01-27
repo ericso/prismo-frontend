@@ -4,12 +4,15 @@
 
 angular
   .module('prismo.users.services', [
-    'ngCookies', 'prismo.users.resources', 'prismo.encoding.services'])
-  .service('AuthenticationService', [
-    '$log', '$cookies', '$rootScope', '$http',
-    'usersResource', 'EncodingService',
-    AuthenticationService]);
+    'ngCookies',
+    'prismo.users.resources',
+    'prismo.encoding.services'
+  ])
+  .service('AuthenticationService', AuthenticationService);
 
+
+AuthenticationService.$inject = ['$log', '$cookies', '$rootScope', '$http',
+    'usersResource', 'EncodingService'];
 
 
 /**
